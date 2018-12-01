@@ -1,0 +1,6 @@
+﻿  GeneticAlgorithm.cpp
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(12): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(14): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(26): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(28): warning C4018: '<': signed/unsigned mismatch
+  AI Project.vcxproj -> H:\Desktop\Y2S1\AI\AIPathfinding\Debug\AI Project.exe
