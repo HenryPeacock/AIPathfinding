@@ -51,9 +51,9 @@ void FileLoader::LoadLevels()
 						{
 							if (m_TempLevel[i + 2] == m_LegalChars[k])								// Check if the next character (2 away due to file loading format) is a number
 							{
-								std::stringstream css;												// Create stringstream
-								css << (m_TempLevel[i] - 48) << (m_TempLevel[i + 2] - 48);			// Concatenate numbers
-								m_Val = atoi(css.str().c_str());									// Convert to integer
+								std::stringstream _tempss;												// Create stringstream
+								_tempss << (m_TempLevel[i] - 48) << (m_TempLevel[i + 2] - 48);			// Concatenate numbers
+								m_Val = atoi(_tempss.str().c_str());									// Convert to integer
 								m_LevelMatrix[l].push_back(m_Val);									// Save in level matrix
 								i += 3;																// Increment i
 								m_IsLoaded = TRUE;													// Avoid the number being saved again
@@ -74,9 +74,11 @@ void FileLoader::LoadLevels()
 
 std::vector<int> FileLoader::ReturnLevel(int _LevelNumber)
 {
+	// Loop the turn one level from the matrix into a single vector array
 	for (int i = 0; i < m_LevelMatrix[_LevelNumber - 1].size(); i++)
 	{
-		m_CurrentLevel.push_back(m_LevelMatrix[_LevelNumber - 1][i]);
+		m_CurrentLevel.push_back(m_LevelMatrix[_LevelNumber - 1][i]);	
 	}
-	return m_CurrentLevel;					
+	// Return the 1D level
+	return m_CurrentLevel;						
 }

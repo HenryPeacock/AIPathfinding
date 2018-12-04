@@ -1,6 +1,9 @@
 #include <vector>
 #include <iostream>
 #include <stdlib.h>
+#include <time.h>
+#include <sstream>
+#include <array>
 
 class GeneticAlgorithm;
 
@@ -8,11 +11,21 @@ class GeneticAlgorithm
 {
 private:
 	std::vector<std::vector<int>> m_CurrentLevel;
+	int m_TempChrome1;
+	int m_TempChrome2;
+	int m_ChromosomeQuantity;
+	int m_ChromosomeLength;
+	std::array<int, 2> m_StartLocation;
+	std::array<int, 2> m_EndLocation;
 	int m_Val;
 	int m_LevelNumber;
+	std::vector<std::vector<int>> m_Chromosomes;
 
 public:
 	GeneticAlgorithm();
 	void FullyLoadLevel(std::vector<int> _1DLevel);
 	void Draw();
+	void CreateChromosomes();
+	void TestChromosomes();
+	void UpdateChromosomes();
 };
