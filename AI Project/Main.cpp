@@ -38,6 +38,7 @@ int main()
 		
 		// Completing the genetic algorithm
 		geneticAlgorithm.CreateChromosomes();
+		geneticAlgorithm.TestChromosomes();
 		
 	}
 	else if (algorithmChoice == 2)

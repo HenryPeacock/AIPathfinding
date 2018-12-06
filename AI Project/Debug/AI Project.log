@@ -1,11 +1,12 @@
 ﻿  GeneticAlgorithm.cpp
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(16): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(18): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(42): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(45): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(51): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(59): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(70): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(17): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(19): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(43): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(46): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(52): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(60): warning C4018: '<': signed/unsigned mismatch
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(71): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+h:\desktop\y2s1\ai\aipathfinding\ai project\geneticalgorithm.cpp(114): warning C4018: '<': signed/unsigned mismatch
   Main.cpp
   Generating Code...
   AI Project.vcxproj -> H:\Desktop\Y2S1\AI\AIPathfinding\Debug\AI Project.exe

@@ -4,8 +4,6 @@
 #include <iostream>
 #include <Windows.h>
 
-class UserInput;
-
 class UserInput 
 {
 private:

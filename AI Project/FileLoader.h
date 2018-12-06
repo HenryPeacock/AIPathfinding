@@ -4,8 +4,6 @@
 #include <vector>
 #include <Windows.h>
 
-class FileLoader;
-
 class FileLoader
 {
 private:
