@@ -4,6 +4,7 @@
 #include <time.h>
 #include <sstream>
 #include <array>
+#include <random>
 
 class GeneticAlgorithm 
 {
@@ -23,6 +24,7 @@ private:
 	std::vector<int> m_ChromosomeMovesTaken;
 	std::vector<std::vector<int>> m_ChromosomeLengthAway;
 	std::vector<float> m_ChromosomeFitness;
+	std::mt19937 m_RandomNumber;
 
 public:
 	GeneticAlgorithm();
