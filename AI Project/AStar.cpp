@@ -11,12 +11,12 @@
 #include "AStar.h"
 using namespace std;
 
-const int n=60; // horizontal size of the map
-const int m=60; // vertical size size of the map
-static int map[n][m];
-static int closed_nodes_map[n][m]; // map of closed (tried-out) nodes
-static int open_nodes_map[n][m]; // map of open (not-yet-tried) nodes
-static int dir_map[n][m]; // map of directions
+int n; // horizontal size of the map
+int m; // vertical size size of the map
+vector<vector<int>> map;
+vector<vector<int>> closed_nodes_map; // map of closed (tried-out) nodes
+vector<vector<int>> open_nodes_map; // map of open (not-yet-tried) nodes
+vector<vector<int>> dir_map; // map of directions
 const int dir=8; // number of possible directions to go at any position
 // if dir==4
 //static int dx[dir]={1, 0, -1, 0};
@@ -95,20 +95,25 @@ string pathFind( const int & xStart, const int & yStart,
     pqi=0;
 
     // reset the node maps
-    for(y=0;y<m;y++)
-    {
-        for(x=0;x<n;x++)
-        {
-            closed_nodes_map[x][y]=0;
-            open_nodes_map[x][y]=0;
-        }
-    }
+	for (x = 0; x < n; x++)
+	{
+		std::vector<int> t;
+		closed_nodes_map.push_back(t);
+		open_nodes_map.push_back(t);
+		dir_map.push_back(t);
+		for (y = 0; y < m; y++)
+		{
+			dir_map[x].push_back(0);
+			closed_nodes_map[x].push_back(0);
+			open_nodes_map[x].push_back(0);
+		}
+	}
 
     // create the start node and push into list of open nodes
     n0=new node(xStart, yStart, 0, 0);
     n0->updatePriority(xFinish, yFinish);
     pq[pqi].push(*n0);
-    open_nodes_map[x][y]=n0->getPriority(); // mark it on the open nodes map
+    open_nodes_map[x-1][y-1]=n0->getPriority(); // mark it on the open nodes map
 
     // A* search
     while(!pq[pqi].empty())
@@ -207,15 +212,53 @@ string pathFind( const int & xStart, const int & yStart,
     return ""; // no route found
 }
 
-int AStar()
+int AStar(std::vector<int> _1DLevel)
 {
+	system("CLS");
+	int xA, yA, xB, yB;
     srand(time(NULL));
+	n = _1DLevel[1] + 1;
+	m = _1DLevel[0] + 1;
 
-    // create empty map
-    for(int y=0;y<m;y++)
+	map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));						// Change the size of current level based on the first 2 values within the level array
+	//closed_nodes_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
+	//open_nodes_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
+	//dir_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
+
+	for(int y=0;y<m;y++)
     {
         for(int x=0;x<n;x++) map[x][y]=0;
     }
+
+	int Val = 0;
+	// Loop to load the requested level
+	for (int j = 1; j < map.size(); j++)											// Loops for the x size of the level
+	{
+		for (int k = 1; k < map[j].size(); k++)										// Loops for the y size of the level
+		{
+			if (_1DLevel[Val + 2] == 3)												// Save the end location
+			{
+				xB = j;
+				yB = k;
+				map[j][k] = 4;
+			}
+			else if (_1DLevel[Val + 2] == 2)
+			{
+				xA = j;
+				yA = k;
+				map[j][k] = _1DLevel[Val + 2];
+			}
+			else
+			{
+				map[j][k] = _1DLevel[Val + 2];
+			}
+			Val++;																	// Increments val
+		}
+	}
+
+
+    // create empty map
+    /**/
 
     // fillout the map matrix with a '+' pattern
  /*   for(int x=n/8;x<n*7/8;x++)
@@ -228,8 +271,8 @@ int AStar()
     }*/
     
     // randomly select start and finish locations
-    int xA, yA, xB, yB;
-    switch(rand()%8)
+    //int xA, yA, xB, yB;
+    /*switch(rand()%8)
     {
         case 0: xA=0;yA=0;xB=n-1;yB=m-1; break;
         case 1: xA=0;yA=m-1;xB=n-1;yB=0; break;
@@ -239,11 +282,11 @@ int AStar()
         case 5: xA=n/2+1;yA=m-1;xB=n/2-1;yB=0; break;
         case 6: xA=0;yA=m/2-1;xB=n-1;yB=m/2+1; break;
         case 7: xA=n-1;yA=m/2+1;xB=0;yB=m/2-1; break;
-    }
+    }*/
 
     cout<<"Map Size (X,Y): "<<n<<","<<m<<endl;
-    cout<<"Start: "<<xA<<","<<yA<<endl;
-    cout<<"Finish: "<<xB<<","<<yB<<endl;
+    cout<<"Start: "<<(xA)<<","<<(yA)<<endl;
+    cout<<"Finish: "<<(xB)<<","<<(yB)<<endl;
     // get the route
     clock_t start = clock();
     string route=pathFind(xA, yA, xB, yB);
@@ -251,8 +294,7 @@ int AStar()
     clock_t end = clock();
     double time_elapsed = double(end - start);
     cout<<"Time to calculate the route (ms): "<<time_elapsed<<endl;
-    cout<<"Route:"<<endl;
-    cout<<route<<endl<<endl;
+    
 
     // follow the route on the map and display it 
     if(route.length()>0)
@@ -272,22 +314,102 @@ int AStar()
         map[x][y]=4;
     
         // display the map with the route
-        for(int y=0;y<m;y++)
+        for(int y=1;y<n;y++)
         {
-            for(int x=0;x<n;x++)
-                if(map[x][y]==0)
-                    cout<<".";
-                else if(map[x][y]==1)
-                    cout<<"O"; //obstacle
-                else if(map[x][y]==2)
-                    cout<<"S"; //start
-                else if(map[x][y]==3)
-                    cout<<"R"; //route
-                else if(map[x][y]==4)
-                    cout<<"F"; //finish
+			std::cout << " ";
+			for (int i = 0; i < m - 1; i++)
+			{
+				std::cout << "----";
+			}
+			std::cout << "-" << std::endl;
+			std::cout << " | ";
+            for(int x=1;x<m;x++)
+                if(map[y][x]==0)
+                    cout<<"0 | ";
+                else if(map[y][x]==1)
+                    cout<<"1 | "; //obstacle
+                else if(map[y][x]==2)
+                    cout<<"S | "; //start
+                else if(map[y][x]==3)
+                    cout<<"R | "; //route
+                else if(map[y][x]==4)
+                    cout<<"F | "; //finish
             cout<<endl;
+			if (y == n - 1)
+			{
+				std::cout << " ";
+				for (int i = 0; i < m - 1; i++)
+				{
+					std::cout << "----";
+				}
+				std::cout << "-" << std::endl;
+			}
         }
     }
+	else
+	{
+		// display the map with the route
+		for (int y = 1; y < n; y++)
+		{
+			std::cout << " ";
+			for (int i = 0; i < m - 1; i++)
+			{
+				std::cout << "----";
+			}
+			std::cout << "-" << std::endl;
+			std::cout << " | ";
+			for (int x = 1; x < m; x++)
+				if (map[y][x] == 0)
+					cout << "0 | ";
+				else if (map[y][x] == 1)
+					cout << "1 | "; //obstacle
+				else if (map[y][x] == 2)
+					cout << "S | "; //start
+				else if (map[y][x] == 3)
+					cout << "R | "; //route
+				else if (map[y][x] == 4)
+					cout << "F | "; //finish
+			cout << endl;
+			if (y == n - 1)
+			{
+				std::cout << " ";
+				for (int i = 0; i < m - 1; i++)
+				{
+					std::cout << "----";
+				}
+				std::cout << "-" << std::endl;
+			}
+		}
+	}
+	cout << "Route:" << endl;
+	for (int i = 0; i < route.size(); i++)
+	{
+		if (route[i] == 0 + 48)
+		{
+			route[i] = 4 + 48;
+		}
+		else if (route[i] == 1 + 48)
+		{
+			route[i] = 3 + 48;
+		}
+		else if (route[i] == 3 + 48)
+		{
+			route[i] = 1 + 48;
+		}
+		else if (route[i] == 4 + 48)
+		{
+			route[i] = 0 + 48;
+		}
+		else if (route[i] == 5 + 48)
+		{
+			route[i] = 7 + 48;
+		}
+		else if (route[i] == 7 + 48)
+		{
+			route[i] = 5 + 48;
+		}
+	}
+	cout << route << endl << endl;
     getchar(); // wait for a (Enter) keypress  
     return(0);
 }

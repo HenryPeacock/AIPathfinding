@@ -43,7 +43,12 @@ int main()
 	}
 	else if (algorithmChoice == 2)
 	{
-		AStar();
+		// Complete level loading
+		levelToLoad = userInput.GetLevelToLoad();
+		theLevel = levelLoader.ReturnLevel(levelToLoad);
+
+		// Run the A* Spaghetti
+		AStar(theLevel);
 	}
 	else
 	{
