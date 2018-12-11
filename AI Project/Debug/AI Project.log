@@ -1,9 +1,4 @@
-﻿  GeneticAlgorithm.cpp
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(17): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(19): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(43): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(46): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(52): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(60): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(115): warning C4018: '<': signed/unsigned mismatch
+﻿  AStar.cpp
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\astar.cpp(212): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\astar.cpp(264): warning C4018: '<': signed/unsigned mismatch
   AI Project.vcxproj -> C:\Users\Henry\Desktop\Uni Year 2\AIPathfinding\Debug\AI Project.exe

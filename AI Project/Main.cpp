@@ -9,6 +9,7 @@
 #include "UserInput.h"
 #include "FileLoader.h"
 #include "GeneticAlgorithm.h"
+#include "AStar.h"
 
 int main()
 {
@@ -18,6 +19,7 @@ int main()
 	std::vector<int> theLevel;
 	UserInput userInput;
 	GeneticAlgorithm geneticAlgorithm;
+
 
 	// Choosing the algorithm
 	algorithmChoice = userInput.Menu();
@@ -37,13 +39,11 @@ int main()
 		geneticAlgorithm.Draw();
 		
 		// Completing the genetic algorithm
-		geneticAlgorithm.CreateChromosomes();
-		geneticAlgorithm.TestChromosomes();
-		
+		geneticAlgorithm.GeneticAlgorithmLoop();
 	}
 	else if (algorithmChoice == 2)
 	{
-		std::cout << "A* Choice placeholder" << std::endl;
+		AStar();
 	}
 	else
 	{

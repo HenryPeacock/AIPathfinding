@@ -2,11 +2,21 @@
 
 GeneticAlgorithm::GeneticAlgorithm()
 {
-	int m_Val = 0;
+	m_Val = 0;
 	m_ChromosomeLength = 20;
 	m_ChromosomeQuantity = 20;
 	m_Chromosomes.resize(m_ChromosomeQuantity, std::vector<int>(0));
+	m_TempChromosomes.resize(2, std::vector<int>(m_ChromosomeLength));
 	m_ChromosomeFinished = false;
+	m_ChromosomeFitness.resize(m_ChromosomeQuantity);
+	m_ChanceToBreed.resize(m_ChromosomeQuantity);
+	m_SwapRate = 0.7;
+	m_ChromosomeLengthAway.resize(m_ChromosomeQuantity, std::vector<int>(2));
+	m_MutationRate = 0.01;
+	m_GenerationCount = 0;
+	m_FinalChromosome.resize(m_ChromosomeLength);
+	m_AlwaysFalse = false;
+	srand(time((unsigned)NULL));
 }
 
 void GeneticAlgorithm::FullyLoadLevel(std::vector<int> _1DLevel)
@@ -79,146 +89,233 @@ void GeneticAlgorithm::CreateChromosomes()
 	}
 }
 
-void GeneticAlgorithm::TestChromosomes()
+std::vector<int> GeneticAlgorithm::TestChromosomes()
 {
-	m_ChromosomeLengthAway.resize(m_ChromosomeQuantity, std::vector<int>(2));
-	for (int i = 0; i < m_ChromosomeQuantity; i++)
+	while (m_AlwaysFalse == false)
 	{
-		
-		m_CurrentLocation = m_StartLocation;
-		m_ChromosomeFinished = false;
-		for (int j = 0; j < m_ChromosomeLength; j++)
+		for (int i = 0; i < m_ChromosomeQuantity; i++)
 		{
-			CalculateDirections(i ,j);
-			if (m_ChromosomeFinished == true)
+			m_GenerationCount++;
+			m_CurrentLocation = m_StartLocation;
+			m_ChromosomeFinished = false;
+			for (int j = 0; j < m_ChromosomeLength; j++)
 			{
-				j = m_ChromosomeLength;
-				m_ChromosomeMovesTaken.push_back(j + 1);
+				CalculateDirections(i, j);
+				if (m_ChromosomeFinished == true)
+				{
+					return m_Chromosomes[i];
+				}
+				else if (j == m_ChromosomeLength - 1)
+				{
+					m_ChromosomeMovesTaken.push_back(j + 1);
+				}
 			}
-			else if (j == m_ChromosomeLength - 1)
-			{
-				m_ChromosomeMovesTaken.push_back(j + 1);
-			}
+			m_ChromosomeLengthAway[i][0] = abs(m_EndLocation[0] - m_CurrentLocation[0]);
+			m_ChromosomeLengthAway[i][1] = abs(m_EndLocation[1] - m_CurrentLocation[1]);
+			CalculateFitness(i);
 		}
-		m_ChromosomeLengthAway[i][0] = abs(m_EndLocation[0] - m_CurrentLocation[0]);
-		m_ChromosomeLengthAway[i][1] = abs(m_EndLocation[1] - m_CurrentLocation[1]);
+		for (int i = 0; i < (m_ChromosomeQuantity / 2); i++)
+		{
+			UpdateChromosomes();
+		}
+		for (int i = 0; i < m_ChromosomeQuantity; i++)
+		{
+			MutateChromosomes(i);
+		}
+		if ((m_GenerationCount % 1000) == 0)
+		{
+			std::cout << m_GenerationCount << std::endl;
+		}
 	}
 }
 
 void GeneticAlgorithm::UpdateChromosomes()
 {
-
+	m_Parent1 = BreedSelector();
+	m_Parent2 = BreedSelector();
+	m_SwapValue = (double)rand() / (RAND_MAX + 1.0);
+	if (m_SwapValue > m_SwapRate)
+	{
+		for (int i = 0; i < m_ChromosomeLength / 2; i++)
+		{
+			m_TempChromosomes[0][i] = m_Chromosomes[m_Parent1][i];
+			m_TempChromosomes[1][i] = m_Chromosomes[m_Parent2][i];
+		}
+		for (int i = (m_ChromosomeLength / 2); i < m_ChromosomeLength; i++)
+		{
+			m_TempChromosomes[0][i] = m_Chromosomes[m_Parent2][i];
+			m_TempChromosomes[1][i] = m_Chromosomes[m_Parent1][i];
+		}
+		for (int i = 0; i < m_ChromosomeLength; i++)
+		{
+			m_Chromosomes[m_Parent1][i] = m_TempChromosomes[0][i];
+			m_Chromosomes[m_Parent2][i] = m_TempChromosomes[0][i];
+		}
+	}
 }
 
 void GeneticAlgorithm::CalculateDirections(int _i, int _j)
 {
-	if (((m_CurrentLocation[1] - 1) > 0) && ((m_CurrentLocation[1] + 1) < (m_CurrentLevel.size())) && ((m_CurrentLocation[0] - 1) > 0) && ((m_CurrentLocation[1] + 1) < (m_CurrentLevel[0].size())))
-	{
-		// North
-		if (m_Chromosomes[_i][_j] == 0)
+	// North
+	if ((m_Chromosomes[_i][_j] == 0) && ((m_CurrentLocation[0] - 1) > 0))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1]] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1]] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1]] != 1))
 			{
 				m_CurrentLocation[0] -= 1;
 			}
 
 		}
-		// North East
-		else if (m_Chromosomes[_i][_j] == 1)
+	// North East
+	else if ((m_Chromosomes[_i][_j] == 1) && ((m_CurrentLocation[0] - 1) > 0) && ((m_CurrentLocation[1] + 1) < m_CurrentLevel[0].size()))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] + 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] + 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] + 1] != 1))
 			{
 				m_CurrentLocation[0] -= 1;
 				m_CurrentLocation[1] += 1;
 			}
 		}
-		// East
-		else if (m_Chromosomes[_i][_j] == 2)
+	// East
+	else if ((m_Chromosomes[_i][_j] == 2) && ((m_CurrentLocation[1] + 1) < m_CurrentLevel[0].size()))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] + 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] + 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] + 1] != 1))
 			{
 				m_CurrentLocation[1] += 1;
 			}
 		}
-		// South East
-		else if (m_Chromosomes[_i][_j] == 3)
+	// South East
+	else if ((m_Chromosomes[_i][_j] == 3) && ((m_CurrentLocation[0] + 1) < m_CurrentLevel.size()) && ((m_CurrentLocation[1] + 1) < m_CurrentLevel[0].size()))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] + 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] + 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] + 1] != 1))
 			{
 				m_CurrentLocation[0] += 1;
 				m_CurrentLocation[1] += 1;
 			}
 		}
-		// South
-		else if (m_Chromosomes[_i][_j] == 4)
+	// South
+	else if ((m_Chromosomes[_i][_j] == 4) && ((m_CurrentLocation[0] + 1) < m_CurrentLevel.size()))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1]] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1]] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1]] != 1))
 			{
 				m_CurrentLocation[0] += 1;
 			}
 		}
-		// South West
-		else if (m_Chromosomes[_i][_j] == 5)
+	// South West
+	else if ((m_Chromosomes[_i][_j] == 5) && ((m_CurrentLocation[0] + 1) < m_CurrentLevel.size()) && ((m_CurrentLocation[1] - 1) > 0))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] - 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] - 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] + 1][m_CurrentLocation[1] - 1] != 1))
 			{
 				m_CurrentLocation[0] += 1;
 				m_CurrentLocation[1] -= 1;
 			}
 		}
-		// West
-		else if (m_Chromosomes[_i][_j] == 6)
+	// West
+	else if ((m_Chromosomes[_i][_j] == 6) && ((m_CurrentLocation[1] - 1) > 0))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] - 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] - 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0]][m_CurrentLocation[1] - 1] != 1))
 			{
 				m_CurrentLocation[1] -= 1;
 			}
 		}
-		// North West
-		else if (m_Chromosomes[_i][_j] == 7)
+	// North West
+	else if ((m_Chromosomes[_i][_j] == 7) && ((m_CurrentLocation[1] - 1) > 0) && ((m_CurrentLocation[0] - 1) > 0))
 		{
 			if (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 3)
 			{
 				m_ChromosomeFinished = true;
 			}
-			if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 0) || (m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] == 2))
+			else if ((m_CurrentLevel[m_CurrentLocation[0] - 1][m_CurrentLocation[1] - 1] != 1))
 			{
 				m_CurrentLocation[0] -= 1;
 				m_CurrentLocation[1] -= 1;
 			}
 		}
-		// Error
-		else
+}
+
+void GeneticAlgorithm::CalculateFitness(int _i)
+{
+	// Fitness = 1/Length away+1
+	m_ChromosomeFitness[_i] = (1 / (float)(m_ChromosomeLengthAway[_i][0] + m_ChromosomeLengthAway[_i][1] + 1));
+	if (_i == (m_ChromosomeQuantity - 1))
+	{
+		m_TotalFitness = 0;
+		for (int i = 0; i < m_ChromosomeQuantity; i++)
 		{
-			throw std::exception();
+			m_TotalFitness += m_ChromosomeFitness[i];
+		}
+		for (int i = 0; i < m_ChromosomeQuantity; i++)
+		{
+			m_ChanceToBreed[i] = (m_ChromosomeFitness[i] / m_TotalFitness);
+			if (i > 0)
+			{
+				m_ChanceToBreed[i] += m_ChanceToBreed[i - 1];
+			}
 		}
 	}
+}
+
+int GeneticAlgorithm::BreedSelector()
+{
+	m_Percentage = (double)rand() / (RAND_MAX + 1.0);
+	for (int i = 0; i < m_ChromosomeQuantity; i++)
+	{
+		if (m_ChanceToBreed[i] >= m_Percentage)
+		{
+			return i;
+			break;
+		}
+	}
+}
+
+void GeneticAlgorithm::MutateChromosomes(int _i)
+{
+	for (int i = 0; i < m_ChromosomeLength; i++)
+	{
+		m_MutationValue = (double)rand() / (RAND_MAX + 1.0);
+		if (m_MutationValue <= m_MutationRate)
+		{
+			m_RandomNumber.seed(std::random_device()());
+			std::uniform_int_distribution<std::mt19937::result_type> m_Distribute(0, 7);
+			m_Chromosomes[_i][i] = m_Distribute(m_RandomNumber);
+		}
+	}
+}
+
+void GeneticAlgorithm::GeneticAlgorithmLoop()
+{
+	CreateChromosomes();
+	m_FinalChromosome = TestChromosomes();
+	std::cout << "The Chromosome ";
+	for (int i = 0; i < m_ChromosomeLength; i++)
+	{
+		std::cout << m_FinalChromosome[i] << " ";
+	}
+	std::cout << "has successfully reached the end!" << std::endl;
 }
