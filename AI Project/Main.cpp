@@ -19,6 +19,7 @@ int main()
 	std::vector<int> theLevel;
 	UserInput userInput;
 	GeneticAlgorithm geneticAlgorithm;
+	bool quit = FALSE;
 
 
 	// Choosing the algorithm
@@ -32,14 +33,19 @@ int main()
 	// Choosing the algorithm
 	if (algorithmChoice == 1)
 	{
-		// Complete level loading and initialise the genetic algorithm
-		levelToLoad = userInput.GetLevelToLoad();
-		theLevel = levelLoader.ReturnLevel(levelToLoad);
-		geneticAlgorithm.FullyLoadLevel(theLevel);
-		geneticAlgorithm.Draw();
-		
-		// Completing the genetic algorithm
-		geneticAlgorithm.GeneticAlgorithmLoop();
+		// Loop to allow multiple levels to have it applied
+		while (!quit)							
+		{
+			// Complete level loading and initialise the genetic algorithm
+			levelToLoad = userInput.GetLevelToLoad();
+			theLevel = levelLoader.ReturnLevel(levelToLoad);
+			geneticAlgorithm.FullyLoadLevel(theLevel);
+			geneticAlgorithm.Draw();
+
+			// Completing the genetic algorithm
+			geneticAlgorithm.GeneticAlgorithmLoop();
+			quit = userInput.Continue();
+		}
 	}
 	else if (algorithmChoice == 2)
 	{
@@ -56,6 +62,5 @@ int main()
 	}
 
 	
-	system("PAUSE");
 	return 0;
 }

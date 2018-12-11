@@ -7,6 +7,7 @@ FileLoader::FileLoader(int _LQ)
 		m_LegalChars[i] = (i + 48);
 	}
 	m_IsLoaded = FALSE;
+	m_EndEarly = FALSE;
 	m_Val = 0;
 	m_LevelQuantity = _LQ;
 	// Resize the level matrix based on how many files the user wishes to load
@@ -33,6 +34,7 @@ void FileLoader::LoadLevels()
 	// Validating the level files and saving to a final level matrix
 	for (int l = 0; l < m_LevelQuantity; l++)														// Loop for all levels
 	{
+		m_EndEarly = FALSE;
 		m_TempLevel.clear();																		// Clear the temporary level vector
 		while (m_LevelFiles[l].get(m_PlaceHolder))													// Load the file into the temporary level vector
 		{
@@ -47,16 +49,24 @@ void FileLoader::LoadLevels()
 				{
 					for (int k = 0; k < 10; k++)													// Loop 10 times to check if the next character is a number, this tests whether we are taking a 2 digit number
 					{
-						if ((i + 2) < m_TempLevel.size())											// Check that we are remaining within the array size to avoid vertex errors 
+						if ((i + 1) < m_TempLevel.size())											// Check that we are remaining within the array size to avoid vertex errors 
 						{
-							if (m_TempLevel[i + 2] == m_LegalChars[k])								// Check if the next character (2 away due to file loading format) is a number
+							if (m_TempLevel[i + 1] == m_LegalChars[k])								// Check if the next character (2 away due to file loading format) is a number
 							{
 								std::stringstream _tempss;												// Create stringstream
-								_tempss << (m_TempLevel[i] - 48) << (m_TempLevel[i + 2] - 48);			// Concatenate numbers
+								_tempss << (m_TempLevel[i] - 48) << (m_TempLevel[i + 1] - 48);			// Concatenate numbers
 								m_Val = atoi(_tempss.str().c_str());									// Convert to integer
-								m_LevelMatrix[l].push_back(m_Val);									// Save in level matrix
-								i += 3;																// Increment i
-								m_IsLoaded = TRUE;													// Avoid the number being saved again
+								m_LevelMatrix[l].push_back(m_Val);										// Save in level matrix
+								if (i < m_TempLevel.size() - 2)
+								{
+									i += 2;																// Increment i
+								}
+								else
+								{
+									m_EndEarly = TRUE;
+								}
+								m_IsLoaded = TRUE;														// Avoid the number being saved again
+								break;
 							}
 						}
 					}
@@ -64,9 +74,17 @@ void FileLoader::LoadLevels()
 					{
 						m_LevelMatrix[l].push_back(m_TempLevel[i] - 48);							// Save in level matrix
 					}
+					else if (m_EndEarly == TRUE)
+					{
+						break;
+					}
 
 				}
 
+			}
+			if (m_EndEarly == TRUE)
+			{
+				break;
 			}
 		}
 	}
@@ -75,6 +93,7 @@ void FileLoader::LoadLevels()
 std::vector<int> FileLoader::ReturnLevel(int _LevelNumber)
 {
 	// Loop the turn one level from the matrix into a single vector array
+	m_CurrentLevel.clear();
 	for (int i = 0; i < m_LevelMatrix[_LevelNumber - 1].size(); i++)
 	{
 		m_CurrentLevel.push_back(m_LevelMatrix[_LevelNumber - 1][i]);	

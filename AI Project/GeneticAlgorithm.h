@@ -52,4 +52,7 @@ public:
 	int BreedSelector();
 	void MutateChromosomes(int _i);
 	void GeneticAlgorithmLoop();
+	void GenerateOneChromosome();
+	void RestoreBalance();
+	void Reset();
 };

@@ -113,7 +113,7 @@ string pathFind( const int & xStart, const int & yStart,
     n0=new node(xStart, yStart, 0, 0);
     n0->updatePriority(xFinish, yFinish);
     pq[pqi].push(*n0);
-    open_nodes_map[x-1][y-1]=n0->getPriority(); // mark it on the open nodes map
+    open_nodes_map[xStart][yStart]=n0->getPriority(); // mark it on the open nodes map
 
     // A* search
     while(!pq[pqi].empty())
@@ -217,10 +217,10 @@ int AStar(std::vector<int> _1DLevel)
 	system("CLS");
 	int xA, yA, xB, yB;
     srand(time(NULL));
-	n = _1DLevel[1] + 1;
-	m = _1DLevel[0] + 1;
+	n = _1DLevel[1];
+	m = _1DLevel[0];
 
-	map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));						// Change the size of current level based on the first 2 values within the level array
+	map.resize(_1DLevel[1], std::vector<int>(_1DLevel[0]));						// Change the size of current level based on the first 2 values within the level array
 	//closed_nodes_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
 	//open_nodes_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
 	//dir_map.resize(_1DLevel[1] + 1, std::vector<int>(_1DLevel[0] + 1));
@@ -232,9 +232,9 @@ int AStar(std::vector<int> _1DLevel)
 
 	int Val = 0;
 	// Loop to load the requested level
-	for (int j = 1; j < map.size(); j++)											// Loops for the x size of the level
+	for (int j = 0; j < map.size(); j++)											// Loops for the x size of the level
 	{
-		for (int k = 1; k < map[j].size(); k++)										// Loops for the y size of the level
+		for (int k = 0; k < map[j].size(); k++)										// Loops for the y size of the level
 		{
 			if (_1DLevel[Val + 2] == 3)												// Save the end location
 			{
@@ -314,16 +314,16 @@ int AStar(std::vector<int> _1DLevel)
         map[x][y]=4;
     
         // display the map with the route
-        for(int y=1;y<n;y++)
+        for(int y=0;y<n;y++)
         {
 			std::cout << " ";
-			for (int i = 0; i < m - 1; i++)
+			for (int i = 0; i < m; i++)
 			{
 				std::cout << "----";
 			}
 			std::cout << "-" << std::endl;
 			std::cout << " | ";
-            for(int x=1;x<m;x++)
+            for(int x=0;x<m;x++)
                 if(map[y][x]==0)
                     cout<<"0 | ";
                 else if(map[y][x]==1)
@@ -338,7 +338,7 @@ int AStar(std::vector<int> _1DLevel)
 			if (y == n - 1)
 			{
 				std::cout << " ";
-				for (int i = 0; i < m - 1; i++)
+				for (int i = 0; i < m; i++)
 				{
 					std::cout << "----";
 				}

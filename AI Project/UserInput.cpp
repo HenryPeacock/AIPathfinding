@@ -36,7 +36,7 @@ int UserInput::GetLevelToLoad()
 		std::getline(std::cin, m_TempLevelQuantity);																			// Take User Input as string
 		std::stringstream convert(m_TempLevelQuantity);																			// Convert to String Stream
 		std::cout << std::endl;
-		if (convert >> m_LevelChoice && !(convert >> m_TempLevelQuantity) && m_LevelChoice <= m_LevelQuantity && m_LevelChoice > 0)		// Test if it is an integer, and if it's between 1 and 5
+		if (convert >> m_LevelChoice && !(convert >> m_TempLevelQuantity) && m_LevelChoice <= m_LevelQuantity && m_LevelChoice > 0)		// Test if it is an integer, and if it's between 1 and previous choice
 		{
 			m_LevelChoice = std::stoi(m_TempLevelQuantity);																	// Convert string to int and store
 			return m_LevelChoice;																								// Exit loop
@@ -44,7 +44,7 @@ int UserInput::GetLevelToLoad()
 		else
 		{
 			std::cin.clear();																									// Clear the user input
-			std::cerr << "Please enter an integer: ";																			// Output the error message
+			std::cerr << "Please enter an integer within the range: ";																			// Output the error message
 		}
 	}
 }
@@ -59,7 +59,7 @@ int UserInput::Menu()
 		std::getline(std::cin, m_TempLevelQuantity);																			// Take User Input as string
 		std::stringstream convert(m_TempLevelQuantity);																			// Convert to String Stream
 		std::cout << std::endl;
-		if (convert >> m_MenuChoice && !(convert >> m_TempLevelQuantity) && m_MenuChoice <= 2 && m_MenuChoice > 0)		// Test if it is an integer, and if it's between 1 and 5
+		if (convert >> m_MenuChoice && !(convert >> m_TempLevelQuantity) && m_MenuChoice <= 2 && m_MenuChoice > 0)		// Test if it is an integer, and if it's between 1 or 2
 		{
 			m_MenuChoice = std::stoi(m_TempLevelQuantity);																	// Convert string to int and store
 			return m_MenuChoice;																								// Exit loop
@@ -67,7 +67,37 @@ int UserInput::Menu()
 		else
 		{
 			std::cin.clear();																									// Clear the user input
-			std::cerr << "Please enter an integer: ";																			// Output the error message
+			std::cerr << "Please enter an integer within the range: ";																			// Output the error message
 		}
 	}
+}
+
+bool UserInput::Continue()
+{
+	// Output the reset message
+	std::cout << "Do you want to test another level (1 = Yes, 2 = No) " << std::endl;
+	while (m_Correct == FALSE)																									// Loop when the input is invalid
+	{
+		std::getline(std::cin, m_TempLevelQuantity);																			// Take User Input as string
+		std::stringstream convert(m_TempLevelQuantity);																			// Convert to String Stream
+		std::cout << std::endl;
+		if (convert >> m_ResetChoice && !(convert >> m_TempLevelQuantity) && m_ResetChoice <= 2 && m_ResetChoice > 0)		// Test if it is an integer, and if it's between 1 or 2
+		{
+			m_ResetChoice = std::stoi(m_TempLevelQuantity);																	// Convert string to int and store																													// Exit loop
+			if (m_ResetChoice == 1)
+			{
+				return false;																								// Continue if they wish
+			}
+			else
+			{
+				return true;																								// Otherwise, exit
+			}
+		}
+		else
+		{
+			std::cin.clear();																									// Clear the user input
+			std::cerr << "Please enter an integer within the range: ";																			// Output the error message
+		}
+	}
+	return false;
 }

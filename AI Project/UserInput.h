@@ -11,6 +11,7 @@ private:
 	int m_LevelQuantity;
 	int m_LevelChoice;
 	int m_MenuChoice;
+	int m_ResetChoice;
 	std::string m_TempLevelQuantity;
 
 public:
@@ -18,4 +19,5 @@ public:
 	int GetLevelQuantity();
 	int GetLevelToLoad();
 	int Menu();
+	bool Continue();
 };

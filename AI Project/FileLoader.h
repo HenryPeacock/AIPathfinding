@@ -10,6 +10,7 @@ private:
 	char m_PlaceHolder;
 	char m_LegalChars[10];
 	bool m_IsLoaded;
+	bool m_EndEarly;
 	int m_Val;
 	int m_LevelQuantity;
 	std::vector<char> m_TempLevel;

@@ -1,7 +1,22 @@
-﻿  AStar.cpp
-h:\desktop\y2s1\ai\aipathfinding\ai project\astar.cpp(219): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-h:\desktop\y2s1\ai\aipathfinding\ai project\astar.cpp(235): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\astar.cpp(237): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\astar.cpp(306): warning C4018: '<': signed/unsigned mismatch
-h:\desktop\y2s1\ai\aipathfinding\ai project\astar.cpp(385): warning C4018: '<': signed/unsigned mismatch
-  AI Project.vcxproj -> H:\Desktop\Y2S1\AI\AIPathfinding\Debug\AI Project.exe
+﻿  GeneticAlgorithm.cpp
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(15): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(27): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(29): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(53): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(56): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(62): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(70): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(102): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(150): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(187): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(200): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(212): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(225): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(237): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(300): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(315): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(144): warning C4715: 'GeneticAlgorithm::TestChromosomes': not all control paths return a value
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(309): warning C4715: 'GeneticAlgorithm::BreedSelector': not all control paths return a value
+  AI Project.vcxproj -> C:\Users\Henry\Desktop\Uni Year 2\AIPathfinding\Debug\AI Project.exe

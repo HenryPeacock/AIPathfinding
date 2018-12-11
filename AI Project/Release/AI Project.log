@@ -1,11 +1,4 @@
-﻿  recipe-577457-1.cpp
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\a_star_code\cpp\recipe-577457-1.cpp(213): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\a_star_code\cpp\recipe-577457-1.cpp(265): warning C4018: '<': signed/unsigned mismatch
-  FileLoader.cpp
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\fileloader.cpp(41): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\fileloader.cpp(50): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\fileloader.cpp(78): warning C4018: '<': signed/unsigned mismatch
-  GeneticAlgorithm.cpp
+﻿  GeneticAlgorithm.cpp
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(13): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(15): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
@@ -15,19 +8,23 @@ c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(56): warning C4018: '<': signed/unsigned mismatch
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(62): warning C4018: '<': signed/unsigned mismatch
 c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(70): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(136): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(173): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(186): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(198): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(211): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(223): warning C4018: '<': signed/unsigned mismatch
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(286): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(301): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Main.cpp
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\a_star_code\cpp\recipe-577457-1.cpp(213): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\henry\desktop\uni year 2\aipathfinding\ai project\a_star_code\cpp\recipe-577457-1.cpp(265): warning C4018: '<': signed/unsigned mismatch
-  UserInput.cpp
-recipe-577457-1.obj : error LNK2005: "int __cdecl AStar(void)" (?AStar@@YAHXZ) already defined in recipe-577457-1.obj
-recipe-577457-1.obj : error LNK2005: "class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > __cdecl pathFind(int const &,int const &,int const &,int const &)" (?pathFind@@YA?AV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABH000@Z) already defined in recipe-577457-1.obj
-recipe-577457-1.obj : error LNK2005: "bool __cdecl operator<(class node const &,class node const &)" (??M@YA_NABVnode@@0@Z) already defined in recipe-577457-1.obj
-C:\Users\Henry\Desktop\Uni Year 2\AIPathfinding\Release\AI Project.exe : fatal error LNK1169: one or more multiply defined symbols found
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(105): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(165): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(202): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(215): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(227): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(240): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(252): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(315): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(330): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(368): warning C4018: '<': signed/unsigned mismatch
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(394): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(396): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(400): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+c:\users\henry\desktop\uni year 2\aipathfinding\ai project\geneticalgorithm.cpp(159): warning C4715: 'GeneticAlgorithm::TestChromosomes': not all control paths return a value
+  1 of 672 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  AI Project.vcxproj -> C:\Users\Henry\Desktop\Uni Year 2\AIPathfinding\Release\AI Project.exe
